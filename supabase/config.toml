@@ -1,0 +1,52 @@
+# Supabase CLI config for Gather. `npx supabase start` runs everything locally (Docker).
+project_id = "gather"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 16
+
+[realtime]
+enabled = true
+
+[storage]
+enabled = true
+file_size_limit = "5MiB"
+
+[auth]
+enabled = true
+site_url = "gather://"
+additional_redirect_urls = ["gather://**", "exp://**", "http://localhost:8081/**"]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+enable_confirmations = true
+secure_password_change = true
+
+[auth.rate_limit]
+email_sent = 4
+sign_in_sign_ups = 30
+
+[edge_runtime]
+enabled = true
+policy = "per_worker"
+
+[functions.ai-plan]
+verify_jwt = true
+import_map = "./functions/ai-plan/deno.json"
+
+[functions.places]
+verify_jwt = true
+import_map = "./functions/places/deno.json"
+
+[functions.delete-account]
+verify_jwt = true
+import_map = "./functions/delete-account/deno.json"
